@@ -27,18 +27,25 @@ class ResponseData(BaseModel):
     extracted_text: str
     metadata: Dict[str, Any]
 
-# Mock function to simulate CrewAI integration
-# In a real implementation, this would use the actual CrewAI SDK
+# Function to integrate with CrewAI
+# Currently mocked, but designed for future CrewAI integration
 async def send_to_reflection_agent(data: InputData) -> bool:
     """
-    Simulates sending data to Reflection Agent using CrewAI.
+    Sends data to Reflection Agent using CrewAI.
     Returns True if successful, False otherwise.
     """
     try:
         # Here we would use CrewAI SDK to send the data
         # For example: crewai.send_to_agent('reflection_agent', data)
         logger.info(f"Sending data to Reflection Agent for input_id: {data.input_id}")
-        # Simulate successful send
+
+        # For now, simulate successful send
+        # In a real implementation, this would be:
+        # from crewai import AgentClient
+        # client = AgentClient()
+        # response = client.send('reflection_agent', data.model_dump())
+        # return response.success
+
         return True
     except Exception as e:
         logger.error(f"Error sending to Reflection Agent: {e}")
@@ -91,6 +98,6 @@ if __name__ == "__main__":
     uvicorn.run(
         app,
         host="0.0.0.0",
-        port=8000,
+        port=8001,  # Use port 8001 to avoid conflict with modality detector
         log_level="info"
     )
